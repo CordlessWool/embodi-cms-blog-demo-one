@@ -4,6 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import swup from "@swup/astro";
 
 import tailwindcss from "@tailwindcss/vite";
+import astAnalyses from "./vite-embodi-cms/index.ts";
 
 // https://astro.build/config
 export default defineConfig({
@@ -24,7 +25,7 @@ export default defineConfig({
   },
 
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), astAnalyses()],
   },
 });
 
