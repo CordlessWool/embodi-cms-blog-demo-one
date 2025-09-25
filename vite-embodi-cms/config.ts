@@ -1,5 +1,6 @@
 import type { AstCollectionConfig, GlobLoaderConfig } from "./ast";
 import fs from "fs/promises";
+import { simplifySchema } from "./schema";
 
 export type CmsCollection = {
   name: string;
@@ -62,6 +63,7 @@ export const generateConfig = async (
   const collections = await Promise.all(
     globAstCollections.map(async (collection) => {
       const schema = await loadSchema(collection.name, projectParams.root);
+      const simpleSchema = simplifySchema(schema);
       return {
         name: collection.name,
         displayName: camelToReadable(collection.name),
@@ -71,7 +73,7 @@ export const generateConfig = async (
           base: collection.loader.base,
         },
         formats: extractFormats(collection.loader.pattern),
-        schema,
+        schema: simpleSchema,
       };
     }),
   );
