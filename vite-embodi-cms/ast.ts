@@ -13,12 +13,30 @@ export type FileLoaderConfig = {
 
 export type LoaderConfig = GlobLoaderConfig | FileLoaderConfig;
 
+export type ZodField = {
+  fieldName: string;
+  type:
+    | "string"
+    | "number"
+    | "boolean"
+    | "date"
+    | "image"
+    | "array"
+    | "object"
+    | "unknown";
+  isOptional?: boolean;
+  arrayElementType?: string; // simplified to just the type name
+};
+
+export type SchemaFields = ZodField[];
+
 export interface AstCollectionConfig<
   Loader extends LoaderConfig = LoaderConfig,
 > {
   name: string;
   loader: Loader;
   hasSchema?: boolean;
+  schemaFields?: SchemaFields;
 }
 
 export function extractFromAST(ast: Program): AstCollectionConfig[] {
@@ -117,7 +135,7 @@ function parseCollectionConfig(node) {
         break;
       case "schema":
         config.hasSchema = true;
-        // TODO: Extract actual schema shape if needed
+        config.schemaFields = parseZodSchema(prop.value);
         break;
     }
   });
@@ -155,4 +173,151 @@ function extractValue(node) {
     default:
       return undefined;
   }
+}
+
+function parseZodSchema(schemaNode): SchemaFields | null {
+  // Handle schema: ({ image }) => z.object({...})
+  if (schemaNode.type === "ArrowFunctionExpression") {
+    const body = schemaNode.body;
+
+    // Look for z.object() call
+    if (isZodObjectCall(body)) {
+      return parseZodObjectFields(body.arguments[0]);
+    }
+  }
+
+  // Handle direct z.object({...}) call
+  if (isZodObjectCall(schemaNode)) {
+    return parseZodObjectFields(schemaNode.arguments[0]);
+  }
+
+  return null;
+}
+
+function parseZodObjectFields(objectNode, prefix = ""): SchemaFields {
+  const fields: SchemaFields = [];
+
+  if (objectNode?.type !== "ObjectExpression") return fields;
+
+  objectNode.properties.forEach((prop) => {
+    if (prop.type === "Property") {
+      const fieldName = prop.key.name || prop.key.value;
+      const fullFieldName = prefix ? `${prefix}.${fieldName}` : fieldName;
+
+      flattenZodField(prop.value, fullFieldName, fields);
+    }
+  });
+
+  return fields;
+}
+
+function flattenZodField(node, fieldName: string, fields: SchemaFields): void {
+  const fieldType = analyzeZodType(node);
+
+  if (!fieldType) return;
+
+  // If it's an object, only add the nested fields (skip the object container itself)
+  if (fieldType.type === "object" && fieldType.objectFields) {
+    const nestedFields = parseZodObjectFields(
+      fieldType.objectFields,
+      fieldName,
+    );
+    fields.push(...nestedFields);
+  } else {
+    // Add non-object fields
+    fields.push({
+      fieldName,
+      type: fieldType.type,
+      isOptional: fieldType.isOptional,
+      arrayElementType: fieldType.arrayElementType,
+    });
+  }
+}
+
+type AnalyzedZodType = {
+  type:
+    | "string"
+    | "number"
+    | "boolean"
+    | "date"
+    | "image"
+    | "array"
+    | "object"
+    | "unknown";
+  isOptional?: boolean;
+  arrayElementType?: string;
+  objectFields?: any; // Will contain the AST node for objects
+};
+
+function analyzeZodType(node): AnalyzedZodType | null {
+  if (!node) return null;
+
+  // Handle chained calls like z.string().optional()
+  if (node.type === "CallExpression") {
+    const baseType = analyzeZodType(node.callee);
+
+    // Check for .optional() call
+    if (
+      node.callee?.type === "MemberExpression" &&
+      node.callee.property?.name === "optional"
+    ) {
+      return {
+        ...baseType,
+        isOptional: true,
+      };
+    }
+
+    // Direct zod type calls
+    if (
+      node.callee?.type === "MemberExpression" &&
+      node.callee.object?.name === "z"
+    ) {
+      const zodMethod = node.callee.property?.name;
+
+      switch (zodMethod) {
+        case "string":
+          return { type: "string" };
+        case "number":
+          return { type: "number" };
+        case "boolean":
+          return { type: "boolean" };
+        case "date":
+          return { type: "date" };
+        case "array":
+          const elementType = node.arguments[0]
+            ? analyzeZodType(node.arguments[0])
+            : null;
+          return {
+            type: "array",
+            arrayElementType: elementType?.type || "unknown",
+          };
+        case "object":
+          return {
+            type: "object",
+            objectFields: node.arguments[0], // Pass the AST node for recursive processing
+          };
+      }
+    }
+
+    // Handle image() function call - this comes from the schema function parameter
+    if (node.callee?.name === "image") {
+      return { type: "image" };
+    }
+  }
+
+  // Handle member expressions for chained calls
+  if (node.type === "MemberExpression") {
+    return analyzeZodType(node.object);
+  }
+
+  return { type: "unknown" };
+}
+
+function isZodObjectCall(node) {
+  return (
+    node?.type === "CallExpression" &&
+    node.callee?.type === "MemberExpression" &&
+    node.callee.object?.name === "z" &&
+    node.callee.property?.name === "object"
+  );
 }

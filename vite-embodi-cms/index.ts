@@ -25,6 +25,7 @@ export default (): Plugin[] => {
         }
 
         const astCollectionConfig = extractFromAST(loaded.ast);
+        console.log(JSON.stringify(astCollectionConfig, null, 2));
         const config = await generateConfig(astCollectionConfig, { root });
 
         const configPath = `${root}/.embodi/cms/config.json`;

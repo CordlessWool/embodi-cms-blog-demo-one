@@ -13,70 +13,99 @@
         "mdx"
       ],
       "schema": {
-        "$schema": "http://json-schema.org/draft-07/schema#",
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "pubDate": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date-time"
-              },
-              {
-                "type": "string",
-                "format": "date"
-              },
-              {
-                "type": "integer",
-                "format": "unix-time"
-              }
-            ]
-          },
-          "author": {
-            "type": "string"
-          },
-          "tags": {
-            "type": "array",
-            "items": {
+        "validation": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "title": {
               "type": "string"
-            }
-          },
-          "draft": {
-            "type": "boolean"
-          },
-          "image": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string"
-              },
-              "alt": {
+            },
+            "description": {
+              "type": "string"
+            },
+            "pubDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "author": {
+              "type": "string"
+            },
+            "tags": {
+              "type": "array",
+              "items": {
                 "type": "string"
               }
             },
-            "required": [
-              "url"
-            ],
-            "additionalProperties": false
+            "draft": {
+              "type": "boolean"
+            },
+            "image": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string"
+                },
+                "alt": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "additionalProperties": false
+            },
+            "$schema": {
+              "type": "string"
+            }
           },
-          "$schema": {
-            "type": "string"
-          }
+          "required": [
+            "title",
+            "description",
+            "pubDate"
+          ],
+          "additionalProperties": false
         },
-        "required": [
-          "title",
-          "description",
-          "pubDate"
-        ],
-        "additionalProperties": false
+        "fields": [
+          {
+            "fieldName": "title",
+            "type": "string"
+          },
+          {
+            "fieldName": "description",
+            "type": "string"
+          },
+          {
+            "fieldName": "pubDate",
+            "type": "date"
+          },
+          {
+            "fieldName": "author",
+            "type": "string",
+            "isOptional": true
+          },
+          {
+            "fieldName": "tags",
+            "type": "array",
+            "isOptional": true,
+            "arrayElementType": "string"
+          },
+          {
+            "fieldName": "draft",
+            "type": "boolean",
+            "isOptional": true
+          },
+          {
+            "fieldName": "image.url",
+            "type": "image"
+          },
+          {
+            "fieldName": "image.alt",
+            "type": "string",
+            "isOptional": true
+          }
+        ]
       }
     }
   ],
-  "updatedAt": 1758832602813
+  "updatedAt": 1758841073213
 }

@@ -63,7 +63,7 @@ export const generateConfig = async (
   const collections = await Promise.all(
     globAstCollections.map(async (collection) => {
       const schema = await loadSchema(collection.name, projectParams.root);
-      const simpleSchema = simplifySchema(schema);
+      const simpleSchema = simplifySchema(schema, collection.schemaFields);
       return {
         name: collection.name,
         displayName: camelToReadable(collection.name),
@@ -73,7 +73,10 @@ export const generateConfig = async (
           base: collection.loader.base,
         },
         formats: extractFormats(collection.loader.pattern),
-        schema: simpleSchema,
+        schema: {
+          validation: simpleSchema,
+          fields: collection.schemaFields,
+        },
       };
     }),
   );
