@@ -81,18 +81,18 @@
           {
             "fieldName": "author",
             "type": "string",
-            "isOptional": true
+            "optional": true
           },
           {
             "fieldName": "tags",
             "type": "array",
-            "isOptional": true,
+            "optional": true,
             "arrayElementType": "string"
           },
           {
             "fieldName": "draft",
             "type": "boolean",
-            "isOptional": true
+            "optional": true
           },
           {
             "fieldName": "image.url",
@@ -101,11 +101,11 @@
           {
             "fieldName": "image.alt",
             "type": "string",
-            "isOptional": true
+            "optional": true
           }
         ]
       }
     }
   ],
-  "updatedAt": 1758841073213
+  "updatedAt": 1758844188405
 }

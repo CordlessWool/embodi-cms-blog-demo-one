@@ -24,7 +24,7 @@ export type ZodField = {
     | "array"
     | "object"
     | "unknown";
-  isOptional?: boolean;
+  optional?: boolean;
   arrayElementType?: string; // simplified to just the type name
 };
 
@@ -228,7 +228,7 @@ function flattenZodField(node, fieldName: string, fields: SchemaFields): void {
     fields.push({
       fieldName,
       type: fieldType.type,
-      isOptional: fieldType.isOptional,
+      optional: fieldType.optional,
       arrayElementType: fieldType.arrayElementType,
     });
   }
@@ -244,7 +244,7 @@ type AnalyzedZodType = {
     | "array"
     | "object"
     | "unknown";
-  isOptional?: boolean;
+  optional?: boolean;
   arrayElementType?: string;
   objectFields?: any; // Will contain the AST node for objects
 };
@@ -263,7 +263,7 @@ function analyzeZodType(node): AnalyzedZodType | null {
     ) {
       return {
         ...baseType,
-        isOptional: true,
+        optional: true,
       };
     }
 
