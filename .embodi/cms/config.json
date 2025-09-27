@@ -39,22 +39,13 @@
             "draft": {
               "type": "boolean"
             },
-            "image": {
-              "type": "object",
-              "properties": {
-                "url": {
-                  "type": "string"
-                },
-                "alt": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "url"
-              ],
-              "additionalProperties": false
-            },
             "$schema": {
+              "type": "string"
+            },
+            "image.url": {
+              "type": "string"
+            },
+            "image.alt": {
               "type": "string"
             }
           },
@@ -107,5 +98,5 @@
       }
     }
   ],
-  "updatedAt": 1758844188405
+  "updatedAt": 1758931352320
 }
