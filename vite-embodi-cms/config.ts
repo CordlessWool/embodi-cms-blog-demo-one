@@ -73,10 +73,7 @@ export const generateConfig = async (
           base: collection.loader.base,
         },
         formats: extractFormats(collection.loader.pattern),
-        schema: {
-          validation: simpleSchema,
-          fields: collection.schemaFields,
-        },
+        fields: collection.schemaFields,
       };
     }),
   );
