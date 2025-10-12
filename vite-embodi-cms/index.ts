@@ -1,36 +1,115 @@
-import { type Plugin } from "vite";
-import { extractFromAST } from "./ast";
-import fs from "fs/promises";
-import { generateConfig } from "./config";
-import { dirname } from "path";
+import { build, type Plugin, type Rollup } from "vite";
+import vm from "node:vm";
+import * as z from "zod";
+
+export const mockImports = (): Plugin => ({
+  name: "vite-mock-imports",
+  resolveId(id, importer) {
+    if (!importer) return;
+    const split = importer.split("/");
+    const name = split[split.length - 1];
+
+    if (id.includes("astro")) {
+      console.error("Mocking astro/loaders", id, importer);
+    }
+    if (name.includes("content.config.")) {
+      console.log("Loading mock import:", id, importer);
+
+      return `\0virtual:${id}`;
+    }
+  },
+  load(id) {
+    if (id === "\0virtual:astro:content") {
+      return `
+        export * as z from 'zod';
+        export const defineCollection = (i) => i;
+      `;
+    }
+  },
+});
+
+export const virtualEntry = (): Plugin => ({
+  name: "vite-virtual-entry",
+  resolveId(id) {
+    if (id === "embodi-config") {
+      return "\0embodi-config";
+    }
+  },
+  load(id) {
+    if (id === "\0embodi-config") {
+      return `import {collections} from './src/content.config.js';
+        export { collections };
+      `;
+    }
+  },
+});
 
 export default (): Plugin[] => {
-  let root: string;
+  const imageHelper = z.string().meta({ id: "image_field" });
+
   return [
     {
       name: "vite-astro-ast-analyses",
-      configResolved(config) {
-        root = config.root;
-      },
       async buildEnd() {
-        const resolved = await this.resolve("./src/content.config.js");
-        if (!resolved) {
-          throw new Error("content.config.js not found");
-        }
+        console.info("Starting cms config generation");
 
-        const loaded = await this.load({ id: resolved.id });
+        const { output } = (await build({
+          plugins: [virtualEntry(), mockImports()],
+          configFile: false,
+          build: {
+            write: false,
+            ssr: true,
+            rollupOptions: {
+              output: {
+                format: "cjs",
+              },
+              input: "embodi-config",
+            },
+          },
+        })) as Rollup.RollupOutput;
 
-        if (!loaded || !loaded.ast) {
-          throw new Error("content.config.js could not loaded");
-        }
+        const { imports, importedBindings, code } = output[0];
+        const sandbox = {
+          require: (id: string) => {
+            if (id === "astro/loaders") {
+              return {
+                glob: (i) => i,
+                file: (i) => i,
+              };
+            } else if (id === "zod") {
+              return z;
+            }
+          },
+          exports: {},
+          module: { exports: {} },
+          console: console,
+        };
 
-        const astCollectionConfig = extractFromAST(loaded.ast);
-        console.log(JSON.stringify(astCollectionConfig, null, 2));
-        const config = await generateConfig(astCollectionConfig, { root });
-
-        const configPath = `${root}/.embodi/cms/config.json`;
-        await fs.mkdir(dirname(configPath), { recursive: true });
-        await fs.writeFile(configPath, JSON.stringify(config, null, 2));
+        const result = await vm.runInNewContext(code, sandbox);
+        const collections = Object.fromEntries(
+          Object.entries(result).map(([key, value]) => {
+            const { schema } = value;
+            if (typeof schema === "function") {
+              const result = schema({
+                image: () => imageHelper,
+              });
+              return [
+                key,
+                {
+                  ...value,
+                  schema: result,
+                },
+              ];
+            }
+            return [key, value];
+          }),
+        );
+        console.log(
+          collections.blogs.schema._def.shape.image._def.innerType._def.shape.url.meta(),
+        );
+        console.log(z.toJSONSchema(collections.blogs.schema));
+        // console.log(JSON.stringify(collections, null, 2));
+        console.info("Finished cms config generation");
       },
     },
   ];
