@@ -1,4 +1,4 @@
-import { glob } from "astro/loaders";
+import { glob, file } from "astro/loaders";
 import { defineCollection, z } from "astro:content";
 
 const blogsCollection = defineCollection({

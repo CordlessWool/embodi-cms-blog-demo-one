@@ -5,53 +5,33 @@
       "displayName": "Blogs",
       "loader": {
         "type": "glob",
-        "pattern": "**/*.{md,mdx}",
-        "base": "./src/content/blogs"
+        "base": "./src/content/blogs",
+        "pattern": "**/*.{md,mdx}"
       },
-      "formats": [
-        "md",
-        "mdx"
-      ],
+      "formats": ["md", "mdx"],
       "fields": [
-        {
-          "fieldName": "title",
-          "type": "string"
-        },
-        {
-          "fieldName": "description",
-          "type": "string"
-        },
-        {
-          "fieldName": "pubDate",
-          "type": "date"
-        },
-        {
-          "fieldName": "author",
-          "type": "string",
-          "optional": true
-        },
+        { "fieldName": "title", "type": "string" },
+        { "fieldName": "description", "type": "string" },
+        { "fieldName": "pubDate", "type": "date" },
+        { "fieldName": "author", "type": "string", "optional": true },
         {
           "fieldName": "tags",
           "type": "array",
-          "optional": true,
-          "arrayElementType": "string"
-        },
-        {
-          "fieldName": "draft",
-          "type": "boolean",
+          "items": { "fieldName": "items", "type": "string" },
           "optional": true
         },
+        { "fieldName": "draft", "type": "boolean", "optional": true },
         {
-          "fieldName": "image.url",
-          "type": "image"
-        },
-        {
-          "fieldName": "image.alt",
-          "type": "string",
+          "fieldName": "image",
+          "type": "object",
+          "fields": [
+            { "fieldName": "url", "type": "image" },
+            { "fieldName": "alt", "type": "string", "optional": true }
+          ],
           "optional": true
         }
       ]
     }
   ],
-  "updatedAt": 1759494745824
+  "updatedAt": 1760574031409
 }
