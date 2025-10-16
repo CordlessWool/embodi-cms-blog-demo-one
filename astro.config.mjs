@@ -2,8 +2,7 @@ import { defineConfig } from "astro/config";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import swup from "@swup/astro";
-
-import viteEmbodiCms from "./vite-embodi-cms";
+import viteEmbodiCms from "@embodi/vite-astro-cms";
 
 import tailwindcss from "@tailwindcss/vite";
 
