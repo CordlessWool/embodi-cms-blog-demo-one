@@ -1,8 +1,8 @@
 ---
-title: First Adventure on Mars
-description: This is the first post of my new blog.
+title: ''
+description: ''
 pubDate: 2024-01-01T00:00:00.000Z
-author: Astro-naut Sid
+author: ''
 tags:
   - astrodfewfdsfwecwecxscdwe
   - blogging
