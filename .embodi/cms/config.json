@@ -31,7 +31,34 @@
           "optional": true
         }
       ]
+    },
+    {
+      "name": "data",
+      "displayName": "Data",
+      "loader": { "type": "file", "path": "./src/content/data.yml" },
+      "fields": [
+        { "fieldName": "title", "type": "string" },
+        { "fieldName": "description", "type": "string" },
+        { "fieldName": "pubDate", "type": "date" },
+        { "fieldName": "author", "type": "string", "optional": true },
+        {
+          "fieldName": "tags",
+          "type": "array",
+          "items": { "fieldName": "items", "type": "string" },
+          "optional": true
+        },
+        { "fieldName": "draft", "type": "boolean", "optional": true },
+        {
+          "fieldName": "image",
+          "type": "object",
+          "fields": [
+            { "fieldName": "url", "type": "image" },
+            { "fieldName": "alt", "type": "string", "optional": true }
+          ],
+          "optional": true
+        }
+      ]
     }
   ],
-  "updatedAt": 1760574031409
+  "updatedAt": 1761842993799
 }
