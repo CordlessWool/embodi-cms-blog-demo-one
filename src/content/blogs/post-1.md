@@ -1,6 +1,6 @@
 ---
-title: ''
-description: ''
+title: First Advandture to Mars
+description: This is the first Post of my new Blog
 pubDate: 2024-01-01T00:00:00.000Z
 author: ''
 tags:
