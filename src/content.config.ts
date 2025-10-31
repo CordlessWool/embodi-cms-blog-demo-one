@@ -26,7 +26,7 @@ const dataFile = defineCollection({
     z.object({
       title: z.string(),
       description: z.string(),
-      pubDate: z.date(),
+      pubDate: z.date().optional(),
       author: z.string().optional(),
       tags: z.array(z.string()).optional(),
       draft: z.boolean().optional(),
