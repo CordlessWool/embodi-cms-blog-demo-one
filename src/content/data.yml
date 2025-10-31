@@ -1,4 +1,7 @@
-title: ""
-description: ""
-pubDate: 2025-10-15T22:00:00.000Z
-draft: false
+title: Some test
+description: This is just a test
+author: Wolfgang Rathgeb
+tags:
+  - 7Tags
+  - Five
+draft: true
