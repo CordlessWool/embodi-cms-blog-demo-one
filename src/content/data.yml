@@ -1,3 +1,7 @@
-title: ""
-description: ""
-draft: false
+title: Some test
+description: This is just a test
+author: Wolfgang Rathgeb
+tags:
+  - 7Tags
+  - Five
+draft: true
