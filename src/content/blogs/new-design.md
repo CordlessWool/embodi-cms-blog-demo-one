@@ -1,7 +1,7 @@
 ---
 title: New Design
 description: some
-pubDate: 2025-10-30T03:09:38.704Z
+pubDate: '2025-11-30'
 author: test
 tags:
   - test
