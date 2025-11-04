@@ -1,13 +1,3 @@
-<<<<<<< Updated upstream
-title: Some test
-description: This is just a test
-pubDate: 2025-11-13
-author: Wolfgang Rathgeb
-tags:
-  - 7Tags
-  - Five
-draft: true
-=======
 - id: 1
   title: Some test
   description: This is just a test
@@ -16,4 +6,3 @@ draft: true
     - 7Tags
     - Five
   draft: true
->>>>>>> Stashed changes
