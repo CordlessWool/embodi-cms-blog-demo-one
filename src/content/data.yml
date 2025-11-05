@@ -1,8 +1,10 @@
-- id: 1
-  title: Some test
+- title: Some test
   description: This is just a test
   author: Wolfgang Rathgeb
   tags:
     - 7Tags
     - Five
   draft: true
+- title: Set 2
+  description: test
+  draft: false
