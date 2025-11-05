@@ -1,10 +1,12 @@
-- title: Some test
+- id: 4f3a179f-3d42-4728-ab69-3f1454e88059
+  title: Some test
   description: This is just a test
   author: Wolfgang Rathgeb
   tags:
     - 7Tags
     - Five
   draft: true
-- title: Set 2
+- id: 44e05b47-fd7b-4366-9b5b-43d1625434fd
+  title: Set 2
   description: test
   draft: false
