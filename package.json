@@ -24,7 +24,7 @@
   "devDependencies": {
     "@babel/parser": "^7.28.5",
     "@babel/traverse": "^7.28.5",
-    "@embodi/vite-astro-cms": "^0.5.0",
+    "@embodi/vite-astro-cms": "^0.6.0",
     "@types/babel__traverse": "^7.28.0",
     "@types/estree": "^1.0.8",
     "prettier": "^3.6.2",

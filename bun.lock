@@ -18,7 +18,7 @@
       "devDependencies": {
         "@babel/parser": "^7.28.5",
         "@babel/traverse": "^7.28.5",
-        "@embodi/vite-astro-cms": "^0.5.0",
+        "@embodi/vite-astro-cms": "^0.6.0",
         "@types/babel__traverse": "^7.28.0",
         "@types/estree": "^1.0.8",
         "prettier": "^3.6.2",
@@ -327,9 +327,9 @@
 
     "@cspotcode/source-map-support": ["@cspotcode/source-map-support@0.8.1", "", { "dependencies": { "@jridgewell/trace-mapping": "0.3.9" } }, "sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw=="],
 
-    "@embodi/cms": ["@embodi/cms@0.2.0", "", { "dependencies": { "@exodus/schemasafe": "^1.3.0", "@libsql/client": "^0.15.15", "@milkdown/core": "^7.17.1", "@milkdown/crepe": "^7.17.1", "@milkdown/kit": "^7.17.1", "@milkdown/plugin-listener": "^7.17.1", "@milkdown/preset-commonmark": "^7.17.1", "@milkdown/theme-nord": "^7.17.1", "@node-rs/argon2": "^2.0.2", "@oslojs/crypto": "^1.0.1", "@oslojs/encoding": "^1.1.0", "@sveltejs/adapter-cloudflare": "^7.2.4", "acorn": "^8.15.0", "arctic": "^3.7.0", "chrono-node": "^2.9.0", "drizzle-orm": "^0.44.7", "drizzle-valibot": "^0.4.2", "graphql": "^16.12.0", "graphql-request": "^7.3.1", "gray-matter": "^4.0.3", "minimatch": "^10.1.1", "octokit": "^5.0.5", "openapi-typescript": "^7.10.1", "superjson": "^2.2.5", "svelte-sonner": "^1.0.5", "yaml": "^2.8.1" } }, "sha512-e66I5gZgTbQI/XpbJWh+lXFyvFzZIhucUkMe+J50XEKpihoeEYrcFwMf0Y+tcPlyb+KY39LBz3hm34Vs9BL6pg=="],
+    "@embodi/cms": ["@embodi/cms@0.3.0", "", { "dependencies": { "@exodus/schemasafe": "^1.3.0", "@libsql/client": "^0.15.15", "@milkdown/core": "^7.17.1", "@milkdown/crepe": "^7.17.1", "@milkdown/kit": "^7.17.1", "@milkdown/plugin-listener": "^7.17.1", "@milkdown/preset-commonmark": "^7.17.1", "@milkdown/theme-nord": "^7.17.1", "@node-rs/argon2": "^2.0.2", "@oslojs/crypto": "^1.0.1", "@oslojs/encoding": "^1.1.0", "@sveltejs/adapter-cloudflare": "^7.2.4", "acorn": "^8.15.0", "arctic": "^3.7.0", "chrono-node": "^2.9.0", "drizzle-orm": "^0.44.7", "drizzle-valibot": "^0.4.2", "graphql": "^16.12.0", "graphql-request": "^7.3.1", "gray-matter": "^4.0.3", "minimatch": "^10.1.1", "octokit": "^5.0.5", "openapi-typescript": "^7.10.1", "superjson": "^2.2.5", "svelte-sonner": "^1.0.5", "yaml": "^2.8.1" } }, "sha512-WjMJUq92aieMmbZ4oCRHKRIXp7vzBuCtJIaIG5stj4r7SmWi03ILiYD1q2HAh6TuAWWi1kHZCa5iNaJ+bA3ttg=="],
 
-    "@embodi/vite-astro-cms": ["@embodi/vite-astro-cms@0.5.0", "", { "dependencies": { "@embodi/cms": "0.2.0", "minimatch": "^10.1.1", "zod": "^4.1.12" }, "peerDependencies": { "astro": "^5.14.5", "typescript": "^5.9.3", "vite": "^7.1.12" } }, "sha512-ATiA9Gz42475Olnq4xOa2nN4Cg/F6ssKLP+wCyTYpW/X5jus0GsxJFORmIqpLwssTtXuLYhak7d6bxNmYSitmw=="],
+    "@embodi/vite-astro-cms": ["@embodi/vite-astro-cms@0.6.0", "", { "dependencies": { "@embodi/cms": "0.3.0", "minimatch": "^10.1.1", "zod": "^4.1.12" }, "peerDependencies": { "astro": "^5.14.5", "typescript": "^5.9.3", "vite": "^7.1.12" } }, "sha512-RrLBn2eAJHHcxEeItBeFGQDNQfihuJ4IEVrKAlMVp9DS1Hk1zrocly49NfeJgSq+1yrXtHBuI2BP1gjFyXn+6g=="],
 
     "@emnapi/core": ["@emnapi/core@1.5.0", "", { "dependencies": { "@emnapi/wasi-threads": "1.1.0", "tslib": "2.8.1" } }, "sha512-sbP8GzB1WDzacS8fgNPpHlp6C9VZe+SJP3F90W9rLemaQj2PzIuTEl1qDOYQf58YIpyjViI24y9aPWCjEzY2cg=="],
 

@@ -1,7 +1,7 @@
 ---
 title: New Design
 description: some
-pubDate: '2025-11-30'
+pubDate: 2025-11-30
 author: test
 tags:
   - test
@@ -9,4 +9,3 @@ tags:
   - more
 draft: true
 ---
-
