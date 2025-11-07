@@ -1,8 +1,8 @@
 ---
-title: Test 123
+title: Test 1234
 description: This is a test from matter
 pubDate: 2025-11-01
-author: test
+author: Wolfgang Rathgeb
 tags:
   - test
   - some
