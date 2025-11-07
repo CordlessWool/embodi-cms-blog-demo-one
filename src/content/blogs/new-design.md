@@ -7,6 +7,7 @@ tags:
   - test
   - some
   - more
+  - test2
 draft: true
 ---
 ## Some more Test 
